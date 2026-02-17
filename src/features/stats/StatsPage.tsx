@@ -22,6 +22,7 @@ export default function StatsPage() {
             <div className="w-full mx-auto">
               <RegisterHeaderBar
                 onBackToRegisterClick={() => router.push("/register-patient")}
+                onAppointmentsClick={() => router.push("/appointments")}
                 onImagesClick={() => router.push("/control-images")}
                 onPatientsClick={() => router.push("/patients")}
                 onStatsClick={() => router.push("/stats")}

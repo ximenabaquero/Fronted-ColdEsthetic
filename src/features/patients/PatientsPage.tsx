@@ -93,6 +93,7 @@ export default function PatientsPage() {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-10">
             <div className="max-w-5xl mx-auto">
               <RegisterHeaderBar
+                onAppointmentsClick={() => router.push("/appointments")}
                 onStatsClick={() => router.push("/stats")}
                 onImagesClick={() => router.push("/control-images")}
                 onPatientsClick={() => router.push("/patients")}

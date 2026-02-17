@@ -130,6 +130,7 @@ export default function ControlImagesPage() {
             <div className="max-w-6xl mx-auto">
               <RegisterHeaderBar
                 onBackToRegisterClick={() => router.push("/register-patient")}
+                onAppointmentsClick={() => router.push("/appointments")}
                 onImagesClick={() => router.push("/control-images")}
                 onPatientsClick={() => router.push("/patients")}
                 onStatsClick={() => router.push("/stats")}

@@ -1,16 +1,17 @@
 type RegisterHeaderBarProps = {
   onPatientsClick?: () => void;
   onBackToRegisterClick?: () => void;
-
+  onAppointmentsClick?: () => void;
   onStatsClick?: () => void;
   onImagesClick?: () => void;
 
-  active?: "register" | "patients" | "stats" | "images";
+  active?: "register" | "appointments" | "patients" | "stats" | "images";
 };
 
 export default function RegisterHeaderBar({
   onPatientsClick,
   onBackToRegisterClick,
+  onAppointmentsClick,
   onStatsClick,
   onImagesClick,
   active = "register",
@@ -33,6 +34,20 @@ export default function RegisterHeaderBar({
             }
           >
             Registro
+          </button>
+        )}
+
+        {onAppointmentsClick && (
+          <button
+            type="button"
+            onClick={onAppointmentsClick}
+            className={
+              active === "appointments"
+                ? "rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-800 shadow-sm"
+                : "rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+            }
+          >
+            Citas
           </button>
         )}
 
