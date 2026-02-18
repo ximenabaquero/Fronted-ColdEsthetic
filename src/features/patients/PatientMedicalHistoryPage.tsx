@@ -54,6 +54,10 @@ export default function PatientMedicalHistoryPage() {
   const brandName = evaluation.user?.brand_name;
   const referrer = patient.referrer_name;
 
+  const pdfTitle = `HC-${patient.first_name}-${patient.last_name}-${new Date(evaluation.created_at)
+    .toLocaleDateString("es-CO", { day: "2-digit", month: "2-digit", year: "numeric" })
+    .replace(/\//g, "-")}`;
+
   return (
     <ProtectedRoute>
       <MainLayout>
@@ -61,7 +65,7 @@ export default function PatientMedicalHistoryPage() {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-10">
             <div className="max-w-5xl mx-auto">
               <RegisterHeaderBar
-                onAppointmentsClick={() => router.push("/appointments")}
+                //onAppointmentsClick={() => router.push("/appointments")}
                 onStatsClick={() => router.push("/stats")}
                 onImagesClick={() => router.push("/control-images")}
                 onPatientsClick={() => router.push("/patients")}
@@ -81,10 +85,10 @@ export default function PatientMedicalHistoryPage() {
 
               <div className="mt-4 flex justify-between items-center mb-6">
                 <BackButton />
-                <ExportButton />
+                <ExportButton documentTitle={pdfTitle} />
               </div>
 
-              <div className="max-w-5xl mx-auto bg-white border border-gray-100 shadow-md rounded-2xl">
+              <div id="clinical-document" className="max-w-5xl mx-auto bg-white border border-gray-100 shadow-md rounded-2xl">
                 {/* HEADER */}
                 <div className="flex justify-between items-start px-8 py-6 bg-white rounded-t-2xl">
                   <div>
@@ -203,7 +207,7 @@ export default function PatientMedicalHistoryPage() {
                     </div>
 
                     <div className="grid grid-cols-4 gap-6 text-sm mb-4">
-                      <div>
+                      <div className="print:hidden">
                         <p className="text-[10px] uppercase font-bold text-gray-400 tracking-wide mb-1">
                           Peso
                         </p>
@@ -211,7 +215,7 @@ export default function PatientMedicalHistoryPage() {
                         <div className="border-t border-gray-100 mt-2" />
                       </div>
 
-                      <div>
+                      <div className="print:hidden">
                         <p className="text-[10px] uppercase font-bold text-gray-400 tracking-wide mb-1">
                           Estatura
                         </p>
@@ -238,6 +242,7 @@ export default function PatientMedicalHistoryPage() {
                       </div>
                     </div>
 
+                    <div className="print:hidden">
                     <p className="text-[10px] uppercase font-bold text-gray-400 tracking-wide mb-1">
                       Antecedentes médicos
                     </p>
@@ -245,6 +250,7 @@ export default function PatientMedicalHistoryPage() {
                       <p className="text-gray-700">
                         {evaluation.medical_background}
                       </p>
+                    </div>
                     </div>
                   </section>
 
@@ -287,11 +293,13 @@ export default function PatientMedicalHistoryPage() {
                           </tbody>
                         </table>
 
-                        <p className="text-[10px] uppercase font-bold text-gray-400 tracking-wide mb-1">
-                          Notas clínicas
-                        </p>
-                        <div className="bg-white border border-gray-200 rounded-xl p-4 text-sm italic text-gray-600">
-                          {proc.notes}
+                        <div className="print:hidden">
+                          <p className="text-[10px] uppercase font-bold text-gray-400 tracking-wide mb-1">
+                            Notas clínicas
+                          </p>
+                          <div className="bg-white border border-gray-200 rounded-xl p-4 text-sm italic text-gray-600">
+                            {proc.notes}
+                          </div>
                         </div>
 
                         <div className="text-right">

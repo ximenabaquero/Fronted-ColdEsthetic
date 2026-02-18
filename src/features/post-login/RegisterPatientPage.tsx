@@ -334,7 +334,7 @@ export default function RegisterPatientPage() {
               <main className="col-span-12 lg:col-span-8">
                 <div className="w-full">
                   <RegisterHeaderBar
-                    onAppointmentsClick={() => router.push("/appointments")}
+                    //onAppointmentsClick={() => router.push("/appointments")}
                     onStatsClick={() => router.push("/stats")}
                     onImagesClick={() => router.push("/control-images")}
                     onPatientsClick={() => router.push("/patients")}

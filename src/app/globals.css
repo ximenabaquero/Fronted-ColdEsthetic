@@ -789,3 +789,43 @@
 		opacity: 1;
 	}
 }
+
+/* IMPRESION / EXPORTAR A PDF */
+@media print {
+  html, body {
+    overflow: hidden !important;
+  }
+
+  body * { visibility: hidden; }
+
+  #clinical-document,
+  #clinical-document * {
+    visibility: visible;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  #clinical-document {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 1.5cm 2cm !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  #clinical-document section,
+  #clinical-document table,
+  #clinical-document tr {
+    break-inside: avoid;
+  }
+}

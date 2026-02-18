@@ -11,7 +11,7 @@ type RegisterHeaderBarProps = {
 export default function RegisterHeaderBar({
   onPatientsClick,
   onBackToRegisterClick,
-  onAppointmentsClick,
+  //onAppointmentsClick,*/
   onStatsClick,
   onImagesClick,
   active = "register",
@@ -37,7 +37,7 @@ export default function RegisterHeaderBar({
           </button>
         )}
 
-        {onAppointmentsClick && (
+        {/* {onAppointmentsClick && (
           <button
             type="button"
             onClick={onAppointmentsClick}
@@ -50,6 +50,7 @@ export default function RegisterHeaderBar({
             Citas
           </button>
         )}
+        */}
 
         {onPatientsClick && (
           <button
