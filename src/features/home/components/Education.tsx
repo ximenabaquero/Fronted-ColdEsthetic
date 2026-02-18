@@ -26,7 +26,18 @@ const topics = [
     tag: "Recuperación Óptima"
   },
 ];
+const scrollToAnchor = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+  e.preventDefault();
+  const targetId = e.currentTarget.getAttribute('href')?.slice(1);
+  const targetElement = document.getElementById(targetId || '');
 
+  if (targetElement) {
+    targetElement.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+  }
+};
 export default function Education() {
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
   const [visibleCards, setVisibleCards] = useState<boolean[]>(() => topics.map(() => false));
@@ -39,7 +50,6 @@ export default function Education() {
     duration: number;
   }>>([]);
 
-  // Generar elementos flotantes solo en el cliente
   useEffect(() => {
     setFloatingElements(
       [...Array(6)].map((_, i) => ({
@@ -76,12 +86,10 @@ export default function Education() {
 
   return (
     <section className="relative py-16 md:py-20 lg:py-24 overflow-hidden">
-      {/* Background with gradient and effects */}
       <div className="absolute inset-0 bg-gradient-to-b from-emerald-50/40 via-white to-white">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-200/20 via-transparent to-transparent"></div>
       </div>
-      
-      {/* Animated floating elements - SOLO en el cliente */}
+
       {floatingElements.length > 0 && (
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           {floatingElements.map((element, i) => (
@@ -102,7 +110,6 @@ export default function Education() {
       )}
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Header Section */}
         <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16 lg:mb-20 px-4">
           <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 mb-6 md:mb-8 shadow-sm border border-emerald-100">
             <BookOpen className="w-4 h-4 text-emerald-500" />
@@ -110,20 +117,19 @@ export default function Education() {
               Educación Médica
             </span>
           </div>
-          
+
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 md:mb-6">
             <span className="text-gray-900">Educación</span>{' '}
             <span className="bg-gradient-to-r from-emerald-500 to-blue-600 bg-clip-text text-transparent">
               y Cuidado
             </span>
           </h2>
-          
+
           <p className="text-base sm:text-lg lg:text-xl text-gray-600 leading-relaxed">
             Explicaciones claras, basadas en práctica médica, para que tomes decisiones seguras y tengas una recuperación tranquila.
           </p>
         </div>
 
-        {/* Education Cards Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8 mb-16 md:mb-20 px-4 sm:px-0">
           {topics.map((topic, index) => (
             <div
@@ -132,55 +138,52 @@ export default function Education() {
               ref={(el) => {
                 cardsRef.current[index] = el;
               }}
-              className={`relative h-[420px] md:h-[450px] ${
-                visibleCards[index] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}
-              style={{ 
+              // CONTENEDOR PADRE
+              className={`flip-card-container group relative h-[420px] md:h-[450px] ${visibleCards[index] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                }`}
+              style={{
                 transitionDelay: `${index * 150}ms`,
                 transition: 'opacity 0.5s, transform 0.5s',
-                perspective: '1500px'
               }}
             >
-              {/* Flip Card Container */}
-              <div className="flip-card-inner group relative w-full h-full cursor-pointer">
-                
-                {/* FRONT SIDE - Pregunta */}
+              <div className="flip-card-inner relative w-full h-full">
+
+                {/* FRONT SIDE */}
                 <div className="flip-card-front absolute w-full h-full">
-                  {/* Glow effect on hover */}
                   <div className={`absolute -inset-1 bg-gradient-to-r ${topic.gradient} rounded-3xl blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-700`}></div>
-                  
+
                   <div className="relative w-full h-full bg-white rounded-3xl border-2 border-gray-100 shadow-xl overflow-hidden">
-                    {/* Decorative gradient bar top */}
                     <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${topic.gradient}`}></div>
-                    
-                    {/* Content */}
-                    <div className="p-8 h-full flex flex-col">
-                      {/* Tag */}
-                      <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-50 to-blue-50 rounded-xl border border-emerald-100 mb-6 self-start">
+
+                    <div className="p-8 h-full flex flex-col items-center">
+                      {/* 1. Tag Superior */}
+                      <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-50 to-blue-50 rounded-xl border border-emerald-100 mb-8 self-start">
                         <Heart className="w-4 h-4 text-emerald-600" />
                         <span className="text-xs font-bold tracking-wide text-emerald-700 uppercase">
                           {topic.tag}
                         </span>
                       </div>
 
-                      {/* Icon Container - Centered */}
-                      <div className="flex justify-center mb-6">
-                        <div className={`inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br ${topic.gradient} shadow-2xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}>
-                          <div className="text-white scale-125">
+                      {/* 2. Contenedor de Icono con margen balanceado */}
+                      <div className="mb-8">
+                        <div className={`inline-flex items-center justify-center w-24 h-24 rounded-3xl bg-gradient-to-br ${topic.gradient} shadow-2xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}>
+                          <div className="text-white scale-[1.5]">
                             {topic.icon}
                           </div>
                         </div>
                       </div>
 
-                      {/* Title (Pregunta) - Centered */}
-                      <h3 className="text-2xl font-bold text-gray-900 text-center leading-tight mb-auto">
-                        {topic.title}
-                      </h3>
+                      {/* 3. Título con espacio flexible para empujar el resto */}
+                      <div className="flex-1 flex flex-col justify-center mb-6">
+                        <h3 className="text-2xl md:text-3xl font-bold text-gray-900 text-center leading-tight">
+                          {topic.title}
+                        </h3>
+                      </div>
 
-                      {/* Hint para voltear - Mejorado */}
-                      <div className="mt-auto pt-6 border-t border-gray-100">
+                      {/* 4. Botón de acción al final */}
+                      <div className="w-full pt-6 border-t border-gray-100">
                         <div className="flex items-center justify-center gap-2 text-emerald-600 group-hover:text-emerald-700 transition-colors">
-                          <span className="text-sm font-semibold">Ver respuesta</span>
+                          <span className="text-sm font-bold uppercase tracking-wider">Ver respuesta</span>
                           <div className="relative">
                             <div className="absolute inset-0 bg-emerald-400 rounded-full blur-sm opacity-0 group-hover:opacity-50 transition-opacity"></div>
                             <ArrowRight className="w-5 h-5 relative group-hover:translate-x-1 transition-transform" />
@@ -189,21 +192,18 @@ export default function Education() {
                       </div>
                     </div>
 
-                    {/* Decorative corner accent */}
-                    <div className={`absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl ${topic.gradient} opacity-5 rounded-tl-[100px]`}></div>
+                    {/* Decoración de esquina */}
+                    <div className={`absolute bottom-0 right-0 w-24 h-24 bg-gradient-to-tl ${topic.gradient} opacity-5 rounded-tl-[100px]`}></div>
                   </div>
                 </div>
 
-                {/* BACK SIDE - Respuesta */}
+                {/* BACK SIDE */}
                 <div className="flip-card-back absolute w-full h-full">
-                  {/* Glow effect */}
                   <div className={`absolute -inset-1 bg-gradient-to-r ${topic.gradient} rounded-3xl blur-xl opacity-30`}></div>
-                  
-                  <div className={`relative w-full h-full bg-gradient-to-br from-white via-emerald-50/30 to-blue-50/30 rounded-3xl border-2 border-emerald-200 shadow-2xl overflow-hidden`}>
-                    {/* Decorative gradient bar top */}
+
+                  <div className="relative w-full h-full bg-gradient-to-br from-white via-emerald-50/30 to-blue-50/30 rounded-3xl border-2 border-emerald-200 shadow-2xl overflow-hidden">
                     <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${topic.gradient}`}></div>
-                    
-                    {/* Pattern background */}
+
                     <div className="absolute inset-0 opacity-5">
                       <div className="absolute inset-0" style={{
                         backgroundImage: 'radial-gradient(circle at 2px 2px, rgb(16 185 129) 1px, transparent 0)',
@@ -211,9 +211,7 @@ export default function Education() {
                       }}></div>
                     </div>
 
-                    {/* Content */}
                     <div className="relative p-8 h-full flex flex-col">
-                      {/* Tag en reverso */}
                       <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/90 backdrop-blur-sm rounded-xl border border-emerald-200 shadow-sm mb-6 self-start">
                         <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${topic.gradient} animate-pulse`}></div>
                         <span className="text-xs font-bold tracking-wide text-emerald-700 uppercase">
@@ -221,14 +219,12 @@ export default function Education() {
                         </span>
                       </div>
 
-                      {/* Body (Respuesta) - Mejorado */}
                       <div className="flex-1 flex items-center">
                         <p className="text-gray-800 leading-relaxed text-base font-medium">
                           {topic.body}
                         </p>
                       </div>
 
-                      {/* Footer con icono */}
                       <div className="mt-6 pt-6 border-t border-emerald-200/50 flex items-center justify-between">
                         <div className="text-xs text-emerald-700 font-semibold flex items-center gap-2">
                           <Sparkles className="w-4 h-4" />
@@ -241,8 +237,6 @@ export default function Education() {
                         </div>
                       </div>
                     </div>
-
-                    {/* Decorative corner accent */}
                     <div className={`absolute top-0 left-0 w-24 h-24 bg-gradient-to-br ${topic.gradient} opacity-10 rounded-br-[80px]`}></div>
                   </div>
                 </div>
@@ -253,46 +247,37 @@ export default function Education() {
 
         {/* CTA Section */}
         <div className="relative max-w-3xl mx-auto px-4 sm:px-0">
-          {/* Glow Effect */}
+          {/* Efecto de resplandor de fondo */}
           <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-blue-500/10 blur-xl md:blur-2xl rounded-2xl md:rounded-3xl"></div>
-          
-          {/* Main CTA Card */}
+
           <div className="relative bg-gradient-to-br from-white via-white to-emerald-50/50 backdrop-blur-sm rounded-2xl md:rounded-3xl border border-white/80 shadow-xl md:shadow-2xl overflow-hidden">
+            {/* Línea decorativa superior */}
             <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 via-blue-600 to-emerald-500"></div>
-            
-            <div className="relative z-10 p-6 md:p-8 lg:p-10 text-center">
-              {/* Icon */}
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-blue-600 mb-6">
-                <Sparkles className="w-8 h-8 text-white" />
+
+            <div className="relative z-10 p-8 md:p-10 lg:p-12 text-center">
+              {/* Icono Principal */}
+              <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-emerald-500 to-blue-600 mb-8 shadow-lg shadow-emerald-200">
+                <Sparkles className="w-10 h-10 text-white" />
               </div>
-              
-              {/* Title */}
-              <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-3 md:mb-4">
+
+              <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 tracking-tight">
                 ¿Tienes más preguntas?
               </h3>
-              
-              {/* Description */}
-              <p className="text-base md:text-lg text-gray-600 mb-6 md:mb-8 max-w-2xl mx-auto leading-relaxed">
+
+              <p className="text-base md:text-lg text-gray-600 mb-10 max-w-xl mx-auto leading-relaxed">
                 Nuestro equipo médico está listo para resolver todas tus dudas y guiarte hacia los mejores resultados.
               </p>
 
-              {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              {/* Contenedor de botón centrado */}
+              <div className="flex justify-center">
                 <a
                   href="#contacto"
-                  className="group w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-gradient-to-r from-emerald-500 to-blue-600 text-white font-semibold py-3 md:py-4 px-6 md:px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                  onClick={scrollToAnchor}
+                  className="group inline-flex items-center justify-center gap-3 bg-gradient-to-r from-emerald-500 to-blue-600 text-white font-bold py-4 px-10 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95"
                 >
-                  <Zap className="w-5 h-5" />
-                  <span>Consulta con nuestro médico</span>
-                  <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform" />
-                </a>
-                
-                <a
-                  href="#faq"
-                  className="inline-flex items-center gap-2 text-gray-700 hover:text-emerald-600 font-medium transition-colors duration-300 text-sm md:text-base"
-                >
-                  <span>Ver más preguntas frecuentes</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <Zap className="w-5 h-5 fill-current" />
+                  <span className="text-base md:text-lg">Consulta con nuestro médico</span>
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </a>
               </div>
             </div>
@@ -300,7 +285,6 @@ export default function Education() {
         </div>
       </div>
 
-      {/* Floating animation and Flip Card CSS */}
       <style jsx>{`
         @keyframes float {
           0%, 100% { transform: translateY(0px) rotate(0deg); }
@@ -310,16 +294,18 @@ export default function Education() {
           animation: float 6s ease-in-out infinite;
         }
 
-        /* Flip Card Styles - Professional Version */
+        /* CORRECCIÓN DEL GIRO */
+        .flip-card-container {
+          perspective: 1500px;
+        }
+
         .flip-card-inner {
-          position: relative;
-          width: 100%;
-          height: 100%;
           transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
           transform-style: preserve-3d;
         }
 
-        .flip-card-inner:hover {
+        /* Al pasar el mouse por el contenedor estable, rotamos el hijo */
+        .flip-card-container:hover .flip-card-inner {
           transform: rotateY(180deg);
         }
 
@@ -327,19 +313,15 @@ export default function Education() {
         .flip-card-back {
           backface-visibility: hidden;
           -webkit-backface-visibility: hidden;
-          -moz-backface-visibility: hidden;
           position: absolute;
           width: 100%;
           height: 100%;
+          top: 0;
+          left: 0;
         }
 
         .flip-card-back {
           transform: rotateY(180deg);
-        }
-
-        /* Smooth shadow transition on flip */
-        .flip-card-inner:hover .flip-card-front {
-          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         }
       `}</style>
     </section>

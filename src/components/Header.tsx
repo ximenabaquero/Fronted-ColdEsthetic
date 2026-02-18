@@ -50,12 +50,12 @@ export default function Header() {
           <div className="flex items-center gap-4">
             {/* Teléfono */}
             <a
-              href="tel:+573001434089"
+              href="tel:+573007986444"
               className="hidden sm:flex items-center gap-2 text-gray-600 hover:text-emerald-600 transition-colors duration-200"
               aria-label="Llamar"
             >
               <Phone size={16} />
-              <span className="text-sm font-medium">+57 300 143 4089</span>
+              <span className="text-sm font-medium">+57 300 798 6444</span>
             </a>
 
             {user ? (

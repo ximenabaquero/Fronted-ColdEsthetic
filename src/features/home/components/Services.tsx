@@ -54,7 +54,18 @@ const services = [
     color: "violet",
   },
 ];
+const scrollToAnchor = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+  e.preventDefault();
+  const targetId = e.currentTarget.getAttribute('href')?.slice(1);
+  const targetElement = document.getElementById(targetId || '');
 
+  if (targetElement) {
+    targetElement.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+  }
+};
 export default function Services() {
   // Cambiamos el tipo a number | null para poder almacenar el índice
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
@@ -93,15 +104,14 @@ export default function Services() {
             {services.map((service, index) => (
               <div
                 key={service.title}
-                className={`group relative h-full transition-all duration-500 ${
-                  hoveredCard === index ? 'transform -translate-y-2' : ''
-                }`}
+                className={`group relative h-full transition-all duration-500 ${hoveredCard === index ? 'transform -translate-y-2' : ''
+                  }`}
                 onMouseEnter={() => setHoveredCard(index)}
                 onMouseLeave={() => setHoveredCard(null)}
               >
                 {/* Card Background */}
                 <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
-                
+
                 {/* Card */}
                 <div className="relative h-full bg-white/80 backdrop-blur-sm rounded-3xl border border-gray-100 p-8 shadow-lg hover:shadow-2xl transition-all duration-500 group-hover:border-emerald-100">
                   {/* Icon */}
@@ -155,21 +165,33 @@ export default function Services() {
         </div>
 
         {/* CTA Section */}
-        <div className="text-center mt-20">
-          <div className="inline-block bg-gradient-to-r from-white to-emerald-50 rounded-2xl p-1 shadow-lg">
-            <div className="bg-white rounded-xl px-8 py-6">
-              <p className="text-gray-700 mb-6 text-lg font-medium">
-                ¿No estás segura de cuál tratamiento es ideal para ti?
-              </p>
-              <a
-                href="#contacto"
-                className="inline-flex items-center gap-3 bg-gradient-to-r from-emerald-500 to-blue-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group"
-              >
-                <span>Agenda una valoración personalizada</span>
-                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </a>
+        <div className="text-center mt-24">
+          <div className="inline-block relative group">
+            {/* Resplandor sutil de fondo que reacciona al hover */}
+            <div className="absolute -inset-1 bg-gradient-to-r from-emerald-400 to-blue-500 rounded-3xl blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
+
+            <div className="relative bg-white rounded-2xl p-1.5 shadow-xl border border-emerald-50">
+              <div className="bg-gradient-to-br from-white to-slate-50 rounded-xl px-10 py-8">
+                <p className="text-gray-800 mb-8 text-xl font-bold tracking-tight">
+                  ¿No estás segura de cuál tratamiento es ideal para ti?
+                </p>
+
+                <a
+                  href="#contacto"
+                  onClick={scrollToAnchor}
+                  className="inline-flex items-center gap-3 bg-gradient-to-r from-emerald-500 to-blue-600 text-white font-bold py-4 px-10 rounded-full shadow-lg shadow-emerald-200 hover:shadow-2xl hover:shadow-emerald-300 transition-all duration-300 hover:scale-105 active:scale-95 group"
+                >
+                  <span>Agenda una valoración personalizada</span>
+                  <svg
+                    className="w-6 h-6 group-hover:translate-x-1.5 transition-transform duration-300"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </a>
+              </div>
             </div>
           </div>
         </div>
