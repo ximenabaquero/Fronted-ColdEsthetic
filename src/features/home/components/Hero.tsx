@@ -43,7 +43,7 @@ export default function Hero() {
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
               <span className="block text-gray-900">Lipólisis láser</span>
               <span className="block bg-gradient-to-r from-emerald-500 via-blue-500 to-emerald-600 bg-clip-text text-transparent mt-2">
-                asistida por tecnología
+                Transforma tu cuerpo
               </span>
             </h1>
 

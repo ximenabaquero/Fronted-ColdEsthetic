@@ -6,7 +6,7 @@ import { useState } from 'react';
 const services = [
   {
     title: "Lipólisis láser",
-    description: "Moldea y elimina grasa localizada con energía láser de precisión, sin cirugía ni incapacidad.",
+    description: "Moldea y elimina grasa localizada con energía láser de precisión.",
     benefit: "Resultados visibles desde la primera sesión",
     icon: <Zap className="w-6 h-6" />,
     gradient: "from-emerald-400 to-blue-500",
