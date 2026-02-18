@@ -39,7 +39,6 @@ export default function Education() {
     duration: number;
   }>>([]);
 
-  // Generar elementos flotantes solo en el cliente
   useEffect(() => {
     setFloatingElements(
       [...Array(6)].map((_, i) => ({
@@ -76,12 +75,10 @@ export default function Education() {
 
   return (
     <section className="relative py-16 md:py-20 lg:py-24 overflow-hidden">
-      {/* Background with gradient and effects */}
       <div className="absolute inset-0 bg-gradient-to-b from-emerald-50/40 via-white to-white">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-200/20 via-transparent to-transparent"></div>
       </div>
       
-      {/* Animated floating elements - SOLO en el cliente */}
       {floatingElements.length > 0 && (
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           {floatingElements.map((element, i) => (
@@ -102,7 +99,6 @@ export default function Education() {
       )}
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Header Section */}
         <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16 lg:mb-20 px-4">
           <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 mb-6 md:mb-8 shadow-sm border border-emerald-100">
             <BookOpen className="w-4 h-4 text-emerald-500" />
@@ -123,7 +119,6 @@ export default function Education() {
           </p>
         </div>
 
-        {/* Education Cards Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8 mb-16 md:mb-20 px-4 sm:px-0">
           {topics.map((topic, index) => (
             <div
@@ -132,30 +127,25 @@ export default function Education() {
               ref={(el) => {
                 cardsRef.current[index] = el;
               }}
-              className={`relative h-[420px] md:h-[450px] ${
+              // CONTENEDOR PADRE: Aquí se maneja la perspectiva y el área de hover para evitar el temblor
+              className={`flip-card-container group relative h-[420px] md:h-[450px] ${
                 visibleCards[index] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
               style={{ 
                 transitionDelay: `${index * 150}ms`,
                 transition: 'opacity 0.5s, transform 0.5s',
-                perspective: '1500px'
               }}
             >
-              {/* Flip Card Container */}
-              <div className="flip-card-inner group relative w-full h-full cursor-pointer">
+              <div className="flip-card-inner relative w-full h-full">
                 
-                {/* FRONT SIDE - Pregunta */}
+                {/* FRONT SIDE */}
                 <div className="flip-card-front absolute w-full h-full">
-                  {/* Glow effect on hover */}
                   <div className={`absolute -inset-1 bg-gradient-to-r ${topic.gradient} rounded-3xl blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-700`}></div>
                   
                   <div className="relative w-full h-full bg-white rounded-3xl border-2 border-gray-100 shadow-xl overflow-hidden">
-                    {/* Decorative gradient bar top */}
                     <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${topic.gradient}`}></div>
                     
-                    {/* Content */}
                     <div className="p-8 h-full flex flex-col">
-                      {/* Tag */}
                       <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-50 to-blue-50 rounded-xl border border-emerald-100 mb-6 self-start">
                         <Heart className="w-4 h-4 text-emerald-600" />
                         <span className="text-xs font-bold tracking-wide text-emerald-700 uppercase">
@@ -163,7 +153,6 @@ export default function Education() {
                         </span>
                       </div>
 
-                      {/* Icon Container - Centered */}
                       <div className="flex justify-center mb-6">
                         <div className={`inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br ${topic.gradient} shadow-2xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}>
                           <div className="text-white scale-125">
@@ -172,12 +161,10 @@ export default function Education() {
                         </div>
                       </div>
 
-                      {/* Title (Pregunta) - Centered */}
                       <h3 className="text-2xl font-bold text-gray-900 text-center leading-tight mb-auto">
                         {topic.title}
                       </h3>
 
-                      {/* Hint para voltear - Mejorado */}
                       <div className="mt-auto pt-6 border-t border-gray-100">
                         <div className="flex items-center justify-center gap-2 text-emerald-600 group-hover:text-emerald-700 transition-colors">
                           <span className="text-sm font-semibold">Ver respuesta</span>
@@ -188,22 +175,17 @@ export default function Education() {
                         </div>
                       </div>
                     </div>
-
-                    {/* Decorative corner accent */}
                     <div className={`absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl ${topic.gradient} opacity-5 rounded-tl-[100px]`}></div>
                   </div>
                 </div>
 
-                {/* BACK SIDE - Respuesta */}
+                {/* BACK SIDE */}
                 <div className="flip-card-back absolute w-full h-full">
-                  {/* Glow effect */}
                   <div className={`absolute -inset-1 bg-gradient-to-r ${topic.gradient} rounded-3xl blur-xl opacity-30`}></div>
                   
-                  <div className={`relative w-full h-full bg-gradient-to-br from-white via-emerald-50/30 to-blue-50/30 rounded-3xl border-2 border-emerald-200 shadow-2xl overflow-hidden`}>
-                    {/* Decorative gradient bar top */}
+                  <div className="relative w-full h-full bg-gradient-to-br from-white via-emerald-50/30 to-blue-50/30 rounded-3xl border-2 border-emerald-200 shadow-2xl overflow-hidden">
                     <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${topic.gradient}`}></div>
                     
-                    {/* Pattern background */}
                     <div className="absolute inset-0 opacity-5">
                       <div className="absolute inset-0" style={{
                         backgroundImage: 'radial-gradient(circle at 2px 2px, rgb(16 185 129) 1px, transparent 0)',
@@ -211,9 +193,7 @@ export default function Education() {
                       }}></div>
                     </div>
 
-                    {/* Content */}
                     <div className="relative p-8 h-full flex flex-col">
-                      {/* Tag en reverso */}
                       <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/90 backdrop-blur-sm rounded-xl border border-emerald-200 shadow-sm mb-6 self-start">
                         <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${topic.gradient} animate-pulse`}></div>
                         <span className="text-xs font-bold tracking-wide text-emerald-700 uppercase">
@@ -221,14 +201,12 @@ export default function Education() {
                         </span>
                       </div>
 
-                      {/* Body (Respuesta) - Mejorado */}
                       <div className="flex-1 flex items-center">
                         <p className="text-gray-800 leading-relaxed text-base font-medium">
                           {topic.body}
                         </p>
                       </div>
 
-                      {/* Footer con icono */}
                       <div className="mt-6 pt-6 border-t border-emerald-200/50 flex items-center justify-between">
                         <div className="text-xs text-emerald-700 font-semibold flex items-center gap-2">
                           <Sparkles className="w-4 h-4" />
@@ -241,8 +219,6 @@ export default function Education() {
                         </div>
                       </div>
                     </div>
-
-                    {/* Decorative corner accent */}
                     <div className={`absolute top-0 left-0 w-24 h-24 bg-gradient-to-br ${topic.gradient} opacity-10 rounded-br-[80px]`}></div>
                   </div>
                 </div>
@@ -251,46 +227,28 @@ export default function Education() {
           ))}
         </div>
 
-        {/* CTA Section */}
+        {/* CTA Section - Sin cambios */}
         <div className="relative max-w-3xl mx-auto px-4 sm:px-0">
-          {/* Glow Effect */}
           <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-blue-500/10 blur-xl md:blur-2xl rounded-2xl md:rounded-3xl"></div>
-          
-          {/* Main CTA Card */}
           <div className="relative bg-gradient-to-br from-white via-white to-emerald-50/50 backdrop-blur-sm rounded-2xl md:rounded-3xl border border-white/80 shadow-xl md:shadow-2xl overflow-hidden">
             <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 via-blue-600 to-emerald-500"></div>
-            
             <div className="relative z-10 p-6 md:p-8 lg:p-10 text-center">
-              {/* Icon */}
               <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-blue-600 mb-6">
                 <Sparkles className="w-8 h-8 text-white" />
               </div>
-              
-              {/* Title */}
               <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-3 md:mb-4">
                 ¿Tienes más preguntas?
               </h3>
-              
-              {/* Description */}
               <p className="text-base md:text-lg text-gray-600 mb-6 md:mb-8 max-w-2xl mx-auto leading-relaxed">
                 Nuestro equipo médico está listo para resolver todas tus dudas y guiarte hacia los mejores resultados.
               </p>
-
-              {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <a
-                  href="#contacto"
-                  className="group w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-gradient-to-r from-emerald-500 to-blue-600 text-white font-semibold py-3 md:py-4 px-6 md:px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-                >
+                <a href="#contacto" className="group w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-gradient-to-r from-emerald-500 to-blue-600 text-white font-semibold py-3 md:py-4 px-6 md:px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
                   <Zap className="w-5 h-5" />
                   <span>Consulta con nuestro médico</span>
                   <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform" />
                 </a>
-                
-                <a
-                  href="#faq"
-                  className="inline-flex items-center gap-2 text-gray-700 hover:text-emerald-600 font-medium transition-colors duration-300 text-sm md:text-base"
-                >
+                <a href="#faq" className="inline-flex items-center gap-2 text-gray-700 hover:text-emerald-600 font-medium transition-colors duration-300 text-sm md:text-base">
                   <span>Ver más preguntas frecuentes</span>
                   <ArrowRight className="w-4 h-4" />
                 </a>
@@ -300,7 +258,6 @@ export default function Education() {
         </div>
       </div>
 
-      {/* Floating animation and Flip Card CSS */}
       <style jsx>{`
         @keyframes float {
           0%, 100% { transform: translateY(0px) rotate(0deg); }
@@ -310,16 +267,18 @@ export default function Education() {
           animation: float 6s ease-in-out infinite;
         }
 
-        /* Flip Card Styles - Professional Version */
+        /* CORRECCIÓN DEL GIRO */
+        .flip-card-container {
+          perspective: 1500px;
+        }
+
         .flip-card-inner {
-          position: relative;
-          width: 100%;
-          height: 100%;
           transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
           transform-style: preserve-3d;
         }
 
-        .flip-card-inner:hover {
+        /* Al pasar el mouse por el contenedor estable, rotamos el hijo */
+        .flip-card-container:hover .flip-card-inner {
           transform: rotateY(180deg);
         }
 
@@ -327,19 +286,15 @@ export default function Education() {
         .flip-card-back {
           backface-visibility: hidden;
           -webkit-backface-visibility: hidden;
-          -moz-backface-visibility: hidden;
           position: absolute;
           width: 100%;
           height: 100%;
+          top: 0;
+          left: 0;
         }
 
         .flip-card-back {
           transform: rotateY(180deg);
-        }
-
-        /* Smooth shadow transition on flip */
-        .flip-card-inner:hover .flip-card-front {
-          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         }
       `}</style>
     </section>
