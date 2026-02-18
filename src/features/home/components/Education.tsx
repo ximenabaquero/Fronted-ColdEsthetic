@@ -26,7 +26,18 @@ const topics = [
     tag: "Recuperación Óptima"
   },
 ];
+const scrollToAnchor = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+  e.preventDefault();
+  const targetId = e.currentTarget.getAttribute('href')?.slice(1);
+  const targetElement = document.getElementById(targetId || '');
 
+  if (targetElement) {
+    targetElement.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+  }
+};
 export default function Education() {
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
   const [visibleCards, setVisibleCards] = useState<boolean[]>(() => topics.map(() => false));
@@ -236,28 +247,37 @@ export default function Education() {
 
         {/* CTA Section */}
         <div className="relative max-w-3xl mx-auto px-4 sm:px-0">
+          {/* Efecto de resplandor de fondo */}
           <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-blue-500/10 blur-xl md:blur-2xl rounded-2xl md:rounded-3xl"></div>
+
           <div className="relative bg-gradient-to-br from-white via-white to-emerald-50/50 backdrop-blur-sm rounded-2xl md:rounded-3xl border border-white/80 shadow-xl md:shadow-2xl overflow-hidden">
+            {/* Línea decorativa superior */}
             <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 via-blue-600 to-emerald-500"></div>
-            <div className="relative z-10 p-6 md:p-8 lg:p-10 text-center">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-blue-600 mb-6">
-                <Sparkles className="w-8 h-8 text-white" />
+
+            <div className="relative z-10 p-8 md:p-10 lg:p-12 text-center">
+              {/* Icono Principal */}
+              <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-emerald-500 to-blue-600 mb-8 shadow-lg shadow-emerald-200">
+                <Sparkles className="w-10 h-10 text-white" />
               </div>
-              <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-3 md:mb-4">
+
+              <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 tracking-tight">
                 ¿Tienes más preguntas?
               </h3>
-              <p className="text-base md:text-lg text-gray-600 mb-6 md:mb-8 max-w-2xl mx-auto leading-relaxed">
+
+              <p className="text-base md:text-lg text-gray-600 mb-10 max-w-xl mx-auto leading-relaxed">
                 Nuestro equipo médico está listo para resolver todas tus dudas y guiarte hacia los mejores resultados.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <a href="#contacto" className="group w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-gradient-to-r from-emerald-500 to-blue-600 text-white font-semibold py-3 md:py-4 px-6 md:px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-                  <Zap className="w-5 h-5" />
-                  <span>Consulta con nuestro médico</span>
-                  <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform" />
-                </a>
-                <a href="#faq" className="inline-flex items-center gap-2 text-gray-700 hover:text-emerald-600 font-medium transition-colors duration-300 text-sm md:text-base">
-                  <span>Ver más preguntas frecuentes</span>
-                  <ArrowRight className="w-4 h-4" />
+
+              {/* Contenedor de botón centrado */}
+              <div className="flex justify-center">
+                <a
+                  href="#contacto"
+                  onClick={scrollToAnchor}
+                  className="group inline-flex items-center justify-center gap-3 bg-gradient-to-r from-emerald-500 to-blue-600 text-white font-bold py-4 px-10 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95"
+                >
+                  <Zap className="w-5 h-5 fill-current" />
+                  <span className="text-base md:text-lg">Consulta con nuestro médico</span>
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </a>
               </div>
             </div>
