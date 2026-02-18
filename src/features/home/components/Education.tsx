@@ -78,7 +78,7 @@ export default function Education() {
       <div className="absolute inset-0 bg-gradient-to-b from-emerald-50/40 via-white to-white">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-200/20 via-transparent to-transparent"></div>
       </div>
-      
+
       {floatingElements.length > 0 && (
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           {floatingElements.map((element, i) => (
@@ -106,14 +106,14 @@ export default function Education() {
               Educación Médica
             </span>
           </div>
-          
+
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 md:mb-6">
             <span className="text-gray-900">Educación</span>{' '}
             <span className="bg-gradient-to-r from-emerald-500 to-blue-600 bg-clip-text text-transparent">
               y Cuidado
             </span>
           </h2>
-          
+
           <p className="text-base sm:text-lg lg:text-xl text-gray-600 leading-relaxed">
             Explicaciones claras, basadas en práctica médica, para que tomes decisiones seguras y tengas una recuperación tranquila.
           </p>
@@ -127,47 +127,52 @@ export default function Education() {
               ref={(el) => {
                 cardsRef.current[index] = el;
               }}
-              // CONTENEDOR PADRE: Aquí se maneja la perspectiva y el área de hover para evitar el temblor
-              className={`flip-card-container group relative h-[420px] md:h-[450px] ${
-                visibleCards[index] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}
-              style={{ 
+              // CONTENEDOR PADRE
+              className={`flip-card-container group relative h-[420px] md:h-[450px] ${visibleCards[index] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                }`}
+              style={{
                 transitionDelay: `${index * 150}ms`,
                 transition: 'opacity 0.5s, transform 0.5s',
               }}
             >
               <div className="flip-card-inner relative w-full h-full">
-                
+
                 {/* FRONT SIDE */}
                 <div className="flip-card-front absolute w-full h-full">
                   <div className={`absolute -inset-1 bg-gradient-to-r ${topic.gradient} rounded-3xl blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-700`}></div>
-                  
+
                   <div className="relative w-full h-full bg-white rounded-3xl border-2 border-gray-100 shadow-xl overflow-hidden">
                     <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${topic.gradient}`}></div>
-                    
-                    <div className="p-8 h-full flex flex-col">
-                      <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-50 to-blue-50 rounded-xl border border-emerald-100 mb-6 self-start">
+
+                    <div className="p-8 h-full flex flex-col items-center">
+                      {/* 1. Tag Superior */}
+                      <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-50 to-blue-50 rounded-xl border border-emerald-100 mb-8 self-start">
                         <Heart className="w-4 h-4 text-emerald-600" />
                         <span className="text-xs font-bold tracking-wide text-emerald-700 uppercase">
                           {topic.tag}
                         </span>
                       </div>
 
-                      <div className="flex justify-center mb-6">
-                        <div className={`inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br ${topic.gradient} shadow-2xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}>
-                          <div className="text-white scale-125">
+                      {/* 2. Contenedor de Icono con margen balanceado */}
+                      <div className="mb-8">
+                        <div className={`inline-flex items-center justify-center w-24 h-24 rounded-3xl bg-gradient-to-br ${topic.gradient} shadow-2xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}>
+                          <div className="text-white scale-[1.5]">
                             {topic.icon}
                           </div>
                         </div>
                       </div>
 
-                      <h3 className="text-2xl font-bold text-gray-900 text-center leading-tight mb-auto">
-                        {topic.title}
-                      </h3>
+                      {/* 3. Título con espacio flexible para empujar el resto */}
+                      <div className="flex-1 flex flex-col justify-center mb-6">
+                        <h3 className="text-2xl md:text-3xl font-bold text-gray-900 text-center leading-tight">
+                          {topic.title}
+                        </h3>
+                      </div>
 
-                      <div className="mt-auto pt-6 border-t border-gray-100">
+                      {/* 4. Botón de acción al final */}
+                      <div className="w-full pt-6 border-t border-gray-100">
                         <div className="flex items-center justify-center gap-2 text-emerald-600 group-hover:text-emerald-700 transition-colors">
-                          <span className="text-sm font-semibold">Ver respuesta</span>
+                          <span className="text-sm font-bold uppercase tracking-wider">Ver respuesta</span>
                           <div className="relative">
                             <div className="absolute inset-0 bg-emerald-400 rounded-full blur-sm opacity-0 group-hover:opacity-50 transition-opacity"></div>
                             <ArrowRight className="w-5 h-5 relative group-hover:translate-x-1 transition-transform" />
@@ -175,17 +180,19 @@ export default function Education() {
                         </div>
                       </div>
                     </div>
-                    <div className={`absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl ${topic.gradient} opacity-5 rounded-tl-[100px]`}></div>
+
+                    {/* Decoración de esquina */}
+                    <div className={`absolute bottom-0 right-0 w-24 h-24 bg-gradient-to-tl ${topic.gradient} opacity-5 rounded-tl-[100px]`}></div>
                   </div>
                 </div>
 
                 {/* BACK SIDE */}
                 <div className="flip-card-back absolute w-full h-full">
                   <div className={`absolute -inset-1 bg-gradient-to-r ${topic.gradient} rounded-3xl blur-xl opacity-30`}></div>
-                  
+
                   <div className="relative w-full h-full bg-gradient-to-br from-white via-emerald-50/30 to-blue-50/30 rounded-3xl border-2 border-emerald-200 shadow-2xl overflow-hidden">
                     <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${topic.gradient}`}></div>
-                    
+
                     <div className="absolute inset-0 opacity-5">
                       <div className="absolute inset-0" style={{
                         backgroundImage: 'radial-gradient(circle at 2px 2px, rgb(16 185 129) 1px, transparent 0)',
@@ -227,7 +234,7 @@ export default function Education() {
           ))}
         </div>
 
-        {/* CTA Section - Sin cambios */}
+        {/* CTA Section */}
         <div className="relative max-w-3xl mx-auto px-4 sm:px-0">
           <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-blue-500/10 blur-xl md:blur-2xl rounded-2xl md:rounded-3xl"></div>
           <div className="relative bg-gradient-to-br from-white via-white to-emerald-50/50 backdrop-blur-sm rounded-2xl md:rounded-3xl border border-white/80 shadow-xl md:shadow-2xl overflow-hidden">
