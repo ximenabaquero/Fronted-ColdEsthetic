@@ -16,15 +16,15 @@ function mulberry32(seed: number) {
 const socialLinks = [
   {
     name: 'WhatsApp',
-    href: 'https://wa.me/573001434089',
+    href: 'https://wa.me/573007986444?text=Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20consulta%20gratuita.%20%C2%BFCu%C3%A1ndo%20tienen%20disponibilidad%3F',
     icon: <MessageCircle className="w-6 h-6 md:w-7 md:h-7" />,
     color: 'bg-gradient-to-br from-emerald-500 to-green-400',
-    description: '+57 (300) 143-4089',
+    description: '+57 (300) 798-6444', 
     gradient: 'from-emerald-400 to-green-500'
   },
   {
     name: 'Teléfono',
-    href: 'tel:+573001434089',
+    href: 'tel:+573007986444',
     icon: <Phone className="w-6 h-6 md:w-7 md:h-7" />,
     color: 'bg-gradient-to-br from-blue-500 to-emerald-400',
     description: 'Llamada directa',
@@ -191,8 +191,8 @@ export default function Contact() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900">Teléfono</h4>
-                    <a href="tel:+573001434089" className="text-gray-600 hover:text-emerald-600 transition-colors">
-                      +57 (300) 143-4089
+                    <a href="tel:+573007986444" className="text-gray-600 hover:text-emerald-600 transition-colors">
+                      +57 (300) 798-6444
                     </a>
                   </div>
                 </div>
@@ -290,7 +290,7 @@ export default function Contact() {
                   </a>
                   
                   <a
-                    href="tel:+573001434089"
+                    href="tel:+573007986444"
                     className="group w-full inline-flex items-center justify-center gap-3 bg-gradient-to-r from-blue-600 to-emerald-500 text-white font-semibold py-3 md:py-4 px-6 md:px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
                   >
                     <Phone className="w-5 h-5 md:w-6 md:h-6" />
